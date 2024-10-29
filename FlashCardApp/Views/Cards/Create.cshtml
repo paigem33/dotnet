@@ -1,0 +1,18 @@
+@model FlashCardApp.Models.Card
+
+<h2>Add New Card</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Term"></label>
+        <input asp-for="Term" />
+        <span asp-validation-for="Term"></span>
+    </div>
+    <div>
+        <label asp-for="Definition"></label>
+        <input asp-for="Definition" />
+        <span asp-validation-for="Definition"></span>
+    </div>
+    <button type="submit">Save</button>
+    <div asp-validation-summary="All"></div>
+</form>
