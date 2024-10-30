@@ -1,31 +1,49 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using FlashCardApp.Data;
 using FlashCardApp.Models;
 
-namespace FlashCardApp.Controllers;
-
-public class HomeController : Controller
+namespace FlashCardApp.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        private ApplicationDbContext _context;
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        public async Task<IActionResult> Index()
+        {
+            var cards = await _context.Cards.ToListAsync();
+            return View(cards);
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Card card)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    await _context.Cards.AddAsync(card);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                catch(Exception e)
+                {
+                    ModelState.AddModelError(string.Empty, $"Something went wrong {e.Message}");
+                }
+            }
+            ModelState.AddModelError(string.Empty, $"Something went wrong");
+            return View(card);
+        }
     }
 }

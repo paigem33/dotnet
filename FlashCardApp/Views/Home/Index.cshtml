@@ -1,8 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+@model List<FlashCardApp.Models.Card>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<a asp-action="Create" asp-controller="Cards">Create</a>
+
+@foreach (var item in Model)
+{
+    @item.Term
+}
