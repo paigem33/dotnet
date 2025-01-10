@@ -1,8 +1,17 @@
 @model List<FlashCardApp.Models.Card>
 
-<a asp-action="Create" asp-controller="Cards">Create</a>
+<a asp-action="Create" asp-controller="Home">Create</a>
 
+<div class="flashcard-container">
 @foreach (var item in Model)
 {
-    @item.Term
+    <div class="flashcard">
+        <div class="front">
+            <h3 class="term">@item.Term</h3>
+        </div>
+        <div class="back">
+          <p class="definition">@item.Definition</p>
+        </div>
+    </div>
 }
+</div>

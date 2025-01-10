@@ -19,6 +19,62 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color:#efc8dc;
+}
+
+.navbar-brand {
+  font-family: "Delius Unicase", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.navbar{
+  font-family: "Delius Unicase", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.flashcard-container {
+  position:relative;
+}
+
+.flashcard {
+  background-color: #fff;
+  width: 50%;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 25px;
+  perspective: 1000;
+  cursor:pointer;
+  transition: 0.5s;
+  transform-style: preserve-3d;
+  position: relative;
+  font-family: "Delius Unicase", serif;
+  font-weight: 700;
+  min-width: 250px;
+}
+.flip {
+  transform: rotateY(180deg);
+}
+
+.front, .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back {
+  transform: rotateY(180deg);
+  font-weight: 400;
 }
 
 .footer {
